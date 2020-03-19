@@ -1,0 +1,5 @@
+pytorch
+glob
+scikit-image
+tqdm
+pillow
