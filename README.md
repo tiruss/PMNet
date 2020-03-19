@@ -10,7 +10,7 @@ Pytorch implementation of "Coarse to Fine: Progressive and Multi-Task Learning f
 
 <img src="Figure/inside.png">
 
-<img src="Figure/multi_abation.png">
+<img src="Figure/multi_ablation.png">
 
 ### Quantative Evaluation
 
