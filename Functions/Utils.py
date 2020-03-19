@@ -7,6 +7,9 @@ from skimage import io
 from skimage import color, morphology, filters
 import os
 import random
+from skimage.transform import resize
+
+import pydensecrf.densecrf as dcrf
 
 def move_to_gpu(x):
     if (torch.cuda.is_available()):
@@ -47,8 +50,11 @@ tau = 1.5
 
 
 def crf(img, anno, to_tensor=False):
-    img = np.array(img, dtype=np.uint8)
-    # image = Image.fromarray(img)
+    img = np.transpose(img, (1, 2, 0))
+    anno = np.transpose(anno, (1, 2, 0))
+    # img = img.copy(order='C')
+    img = np.ascontiguousarray(img, dtype=np.uint8)
+
     d = dcrf.DenseCRF2D(img.shape[1], img.shape[0], 2)
     n_energy = -np.log((1.0 - anno + EPSILON)) / (tau * sigmoid(1 - anno))
     p_energy = -np.log(anno + EPSILON) / (tau * sigmoid(anno))
@@ -70,3 +76,16 @@ def crf(img, anno, to_tensor=False):
     res = np.transpose(res, (1, 2, 0))
 
     return res
+
+
+def make_heatmap(img_dir):
+    img_list = os.listdir(img_dir)
+    mean = np.zeros((224, 224, 3))
+    for i, v in enumerate(img_list):
+        if i % 1000 == 0:
+            print(i)
+        img = plt.imread(img_dir + img_list[i])
+        img = resize(img, (224, 224, 3))
+        mean += img
+
+    return mean

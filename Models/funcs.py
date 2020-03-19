@@ -2,6 +2,7 @@ import torch.nn as nn
 import torch
 import numpy as np
 import pdb
+import matplotlib.pyplot as plt
 
 dim_dict = {
     'densenet169': [64, 128, 256, 640, 1664],
@@ -40,3 +41,28 @@ def weight_init(m):
 def fraze_bn(m):
     if isinstance(m, nn.BatchNorm2d):
         m.requires_grad=False
+
+def visualize(img, gt, contour, pred, contour_pred, epoch, iter):
+    image = np.transpose(img.detach().cpu().numpy()[0], (1, 2, 0))
+    ground_truth = np.squeeze(np.transpose(gt.detach().cpu().numpy()[0], (1, 2, 0)), -1)
+    contour_gt = np.squeeze(np.transpose(contour.detach().cpu().numpy()[0], (1, 2, 0)), -1)
+    output = np.squeeze(np.transpose(pred.detach().cpu().numpy()[0], (1, 2, 0)), -1)
+    contour_output = np.squeeze(np.transpose(contour_pred.detach().cpu().numpy()[0], (1, 2, 0)), -1)
+
+    # plt.subplot(3, 2, 1)
+    # plt.imshow(image)
+    # plt.subplot(3, 2, 3)
+    # plt.imshow(ground_truth, cmap='gray')
+    # plt.subplot(3, 2, 4)
+    # plt.imshow(output, cmap='gray')
+    # plt.subplot(3, 2, 5)
+    # plt.imshow(contour_gt, cmap='gray')
+    # plt.subplot(3, 2, 6)
+    # plt.imshow(contour_output, cmap='gray')
+    # plt.show()
+    plt.imsave("result/img_{}_{}.jpg".format(epoch, iter), image)
+    plt.imsave("result/gt_{}_{}.jpg".format(epoch, iter), ground_truth, cmap='gray')
+    plt.imsave("result/output_{}_{}.jpg".format(epoch, iter), output, cmap='gray')
+    plt.imsave("result/contour_gt_{}_{}.jpg".format(epoch, iter), contour_gt, cmap='gray')
+    plt.imsave("result/contour_output_{}_{}.jpg".format(epoch, iter), contour_output, cmap='gray')
+

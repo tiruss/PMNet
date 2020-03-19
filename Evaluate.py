@@ -1,17 +1,14 @@
-from glob import glob
+from PIL import Image
 import os
 import numpy as np
 from multiprocessing import Pool
-from PIL import Image
-
-eps = np.finfo(float).eps
+from glob import glob
+import argparse
 
 def evaluate(param):
     pred_name, gt_name = param
     mask = Image.open(pred_name)
     gt = Image.open(gt_name)
-
-    # print(mask.size, gt.size)
 
     mask = mask.resize(gt.size)
     mask = np.array(mask, dtype=np.float)
@@ -44,7 +41,7 @@ def evaluate(param):
 
     thfm = 1.3 * pre * rec / (0.3 * pre + rec + eps)
 
-    for th in np.linspace(0,1,256):
+    for th in np.linspace(0,1,21):
         binary = np.zeros(mask.shape)
         binary[mask >= th] = 1
         pre = (binary * gt).sum() / (binary.sum()+eps)
@@ -57,7 +54,7 @@ def evaluate(param):
 
 
 
-def fm_and_mae(pred_dir, gt_dir, output_dir=None, name=None):
+def fm_and_mae(pred_dir, gt_dir, output_dir=None):
     if output_dir is not None and not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
@@ -76,20 +73,22 @@ def fm_and_mae(pred_dir, gt_dir, output_dir=None, name=None):
     maxfm = fms.max()
     meanfm = fms.mean()
 
-    return maxfm, meanfm, m_mea, m_pres, m_recs, fms
-
-# def get_pres_recs_fm(pred_dir, gt_dir):
-#
-#     pred_list = sorted(os.listdir(pred_dir))
-#     gt_list = sorted(os.listdir(gt_dir))
-#
-#     pool = Pool(4)
-#     results = pool.map(evaluate, zip(pred_list, gt_list))
-#     thfm, _, recs, pres = list(map(list, zip(*results)))
-#
-#     return pres, recs
-
+    return maxfm, meanfm, m_mea, m_recs, m_pres
 
 def f_measure(param):
     pres, recs = param
     return 1.3 * pres * recs / (0.3 * pres + recs + eps)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--pred_dir', default='results')
+    parser.add_argument('--mask_dir', default='datasets/ECSSD/gt')
+
+    args = parser.parse_args()
+
+    maxfm, meanfm, m_mea, _, _ = fm_and_mae(pred_dir=args.pred_dir, gt_dir=args.mask_dir)
+
+    print("Max F-measure: {:.4f}".format(maxfm))
+    print("Mean F-measure: {:.4f}".format(meanfm))
+    print("Mean Absolute Error: {:.4f}".format(m_mea))
