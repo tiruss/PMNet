@@ -2,6 +2,8 @@
 
 Pytorch implementation of "Coarse to Fine: Progressive and Multi-Task Learning for Salient Object Detection"
 
+<img src="Figure/overall_net.png">
+
 ### Qualitative Evaluation
 
 ### Quantative Evaluation
