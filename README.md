@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 ### Run experiments from pretrained weight
 
-- Download pretrained weight from the link
+- Download pretrained weight from the link. [[Google Drive]](https://drive.google.com/open?id=11PQySPgimyZ011FOjmxGBOGcyti1Z0rH)
 
 - If you want CRF for postprocessing, download [PyCRF](https://pypi.org/project/pydensecrf/) from the link.
 
