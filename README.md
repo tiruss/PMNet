@@ -41,7 +41,11 @@ pip install -r requirements.txt
 
 ### Run experiments from pretrained weight
 
-- Download pretrained weight from the link 
+- Download pretrained weight from the link
+
+- Pre-computed saliency maps can download from the link
+
+- [[Google Drive]](https://drive.google.com/open?id=1im9vBnMN5zLXH-NwHzsosltYyKfyRsyz) [[Baidu Drive]]() Baidu drive will be updated soon.
 
 ### Train from scratch
 
