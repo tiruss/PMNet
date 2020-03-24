@@ -51,6 +51,12 @@ pip install -r requirements.txt
 
 - DUTS-TR is our traning set for pair comparison
 
+- First, you need make contour of dataset
+
+```
+python Make_Contour.py --data_dir [Dataset name ex)'DUTS-TR']
+```
+
 - Run 
 
 ```
