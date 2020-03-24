@@ -6,7 +6,17 @@ Pytorch implementation of "Coarse to Fine: Progressive and Multi-Task Learning f
 
 ### Qualitative Evaluation
 
+<img src="Figure/qualitative.png">
+
+<img src="Figure/inside.png">
+
+<img src="Figure/multi_ablation.png">
+
 ### Quantative Evaluation
+
+<img src="Figure/table.PNG">
+
+<img src="Figure/fm_pr.png">
 
 ## Getting Started
 ### Installation
@@ -31,7 +41,11 @@ pip install -r requirements.txt
 
 ### Run experiments from pretrained weight
 
-- Download pretrained weight from the link 
+- Download pretrained weight from the link. [[Google Drive]](https://drive.google.com/open?id=11PQySPgimyZ011FOjmxGBOGcyti1Z0rH) [[Baidu Drive]]() Baidu drive will be updated soon.
+
+- If you want CRF for postprocessing, download [PyCRF](https://pypi.org/project/pydensecrf/) from the link.
+
+- Pre-computed saliency maps can download from the link. [[Google Drive]](https://drive.google.com/open?id=1im9vBnMN5zLXH-NwHzsosltYyKfyRsyz) [[Baidu Drive]]() Baidu drive will be updated soon.
 
 ### Train from scratch
 
