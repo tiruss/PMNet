@@ -51,4 +51,8 @@ pip install -r requirements.txt
 
 - DUTS-TR is our traning set for pair comparison
 
-- Run train.py
+- Run 
+
+```
+python Train.py --img_dir [DUTS-TR img dir] --gt_dir [DUTS-TR label dir] --contour_dir [DUTS-TR contour dir] --epoch --batch_size --gpus --down_scale
+```
