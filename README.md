@@ -45,11 +45,22 @@ pip install -r requirements.txt
 
 - If you want CRF for postprocessing, download [PyCRF](https://pypi.org/project/pydensecrf/) from the link.
 
+- Run
+```
+python Test.py --weight [pretrained wieght] --input_dir [dataset name, default='DUTS-TE'] --crf [default='False']
+```
+
 - Pre-computed saliency maps can download from the link. [[Google Drive]](https://drive.google.com/open?id=1im9vBnMN5zLXH-NwHzsosltYyKfyRsyz) [[Baidu Drive]]() Baidu drive will be updated soon.
 
 ### Train from scratch
 
 - DUTS-TR is our traning set for pair comparison
+
+- First, you need make contour of dataset
+
+```
+python Make_Contour.py --data_dir [Dataset name ex)'DUTS-TR']
+```
 
 - Run 
 
