@@ -43,9 +43,9 @@ pip install -r requirements.txt
 
 - Download pretrained weight from the link
 
-- Pre-computed saliency maps can download from the link
+- If you want CRF for postprocessing, download [PyCRF](https://pypi.org/project/pydensecrf/) from the link.
 
-- [[Google Drive]](https://drive.google.com/open?id=1im9vBnMN5zLXH-NwHzsosltYyKfyRsyz) [[Baidu Drive]]() Baidu drive will be updated soon.
+- Pre-computed saliency maps can download from the link. [[Google Drive]](https://drive.google.com/open?id=1im9vBnMN5zLXH-NwHzsosltYyKfyRsyz) [[Baidu Drive]]() Baidu drive will be updated soon.
 
 ### Train from scratch
 
