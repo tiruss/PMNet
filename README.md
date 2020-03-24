@@ -33,9 +33,7 @@ pip install -r requirements.txt
 
 ### Download datasets
 
-- Download training datasets [[DUTS-TR]](http://saliencydetection.net/duts/download/DUTS-TR.zip) from the link 
-
-- Download [[HKU-IS]](https://sites.google.com/site/ligb86/hkuis) for test from the link 
+- Download training datasets from the [link](https://drive.google.com/open?id=1U5d5dSj3yiB1vHhgoh94rbjBMRFjg5ld). DUTS-TR is our train dataset.
 
 - Other datasets can download from the link [[sal_eval_toolbox]](https://github.com/ArcherFMY/sal_eval_toolbox) Thank you for the awesome evaluation toolbox!
 
