@@ -54,5 +54,5 @@ pip install -r requirements.txt
 - Run 
 
 ```
-python Train.py --img_dir [DUTS-TR img dir] --gt_dir [DUTS-TR label dir] --epoch --batch_size --gpus --down_scale
+python Train.py --img_dir [DUTS-TR img dir] --gt_dir [DUTS-TR label dir] --contour_dir [DUTS-TR contour dir] --epoch --batch_size --gpus --down_scale
 ```
