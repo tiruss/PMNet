@@ -28,7 +28,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', default=64)
     parser.add_argument('--result_save', default=True)
     parser.add_argument('--measure_test', default=True)
-    parser.add_argument("--crf", default=True)
+    parser.add_argument("--crf", default=False)
 
     args = parser.parse_args()
 
