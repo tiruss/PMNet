@@ -1,4 +1,4 @@
-# PMNet: Coarse to Fine: Progressive and Multi-Task Learning for Salient Object Detection
+# PMNet: Coarse to Fine: Progressive and Multi-Task Learning for Salient Object Detection (ICPR 2020)
 
 Pytorch implementation of "Coarse to Fine: Progressive and Multi-Task Learning for Salient Object Detection"
 
