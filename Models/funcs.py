@@ -3,6 +3,7 @@ import torch
 import numpy as np
 import pdb
 import matplotlib.pyplot as plt
+import os
 
 dim_dict = {
     'densenet169': [64, 128, 256, 640, 1664],
@@ -49,6 +50,7 @@ def visualize(img, gt, contour, pred, contour_pred, epoch, iter):
     output = np.squeeze(np.transpose(pred.detach().cpu().numpy()[0], (1, 2, 0)), -1)
     contour_output = np.squeeze(np.transpose(contour_pred.detach().cpu().numpy()[0], (1, 2, 0)), -1)
 
+    os.makedirs('result', exist_ok=True)
     # plt.subplot(3, 2, 1)
     # plt.imshow(image)
     # plt.subplot(3, 2, 3)
