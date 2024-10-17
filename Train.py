@@ -13,16 +13,16 @@ from Trainer import inter_train
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--img_dir', default='/media/hasil/Data_SSD/test_set/Datasets/DUTS-TR_Test/imgs/')
-    parser.add_argument('--gt_dir', default='/media/hasil/Data_SSD/test_set/Datasets/DUTS-TR_Test/gt/')
-    parser.add_argument('--contour_dir', default='/media/hasil/Data_SSD/test_set/Datasets/DUTS-TR_Test/contour/')
+    parser.add_argument('--img_dir', default='Datasets/DUTS-TR/imgs/')
+    parser.add_argument('--gt_dir', default='Datasets/DUTS-TR/gt/')
+    parser.add_argument('--contour_dir', default='Datasets/DUTS-TR/contour/')
     parser.add_argument('--batch_size', default=12)
     parser.add_argument('--down_scale', default=5, type=int)
     parser.add_argument('--epoch', default=200)
     parser.add_argument('--gpus', default=2, type=int)
     parser.add_argument('--log_path', default='logs')
     parser.add_argument('--reload', default=False)
-    parser.add_argument('--weight', default='Weights/Prog_multi_0309_220.pth')
+    parser.add_argument('--weight', default='Weights/param_200.pth')
 
     args = parser.parse_args()
 
@@ -77,12 +77,12 @@ if __name__ == '__main__':
                     writer.add_scalar("training loss", criterion.mean().item(), epoch)
 
             if (epoch + 1) % 5 == 0:
-                torch.save(model.state_dict(), "./Weights/param_{}.pth".format(epoch + 1))
+                torch.save(model.module.state_dict(), "./Weights/param_{}.pth".format(epoch + 1))
 
-        inter_net1 = inter_train(args, epochs=(5, 15), scale_ratio=1)
-        inter_net2 = inter_train(args, epochs=(15, 30), scale_ratio=2)
-        inter_net3 = inter_train(args, epochs=(30, 70), scale_ratio=3)
-        inter_net4 = inter_train(args, epochs=(70, 120), scale_ratio=4)
-        inter_net5 = inter_train(args, epochs=(120, 200), scale_ratio=5)
+        inter_net1 = inter_train(args, epochs=(6, 16), scale_ratio=1)
+        inter_net2 = inter_train(args, epochs=(16, 31), scale_ratio=2)
+        inter_net3 = inter_train(args, epochs=(31, 71), scale_ratio=3)
+        inter_net4 = inter_train(args, epochs=(71, 121), scale_ratio=4)
+        inter_net5 = inter_train(args, epochs=(121, 201), scale_ratio=5)
     else:
-        net = inter_train(args, epochs=(220, 250), scale_ratio=5)
+        net = inter_train(args, epochs=(201, 251), scale_ratio=5)

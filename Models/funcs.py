@@ -50,7 +50,7 @@ def visualize(img, gt, contour, pred, contour_pred, epoch, iter):
     output = np.squeeze(np.transpose(pred.detach().cpu().numpy()[0], (1, 2, 0)), -1)
     contour_output = np.squeeze(np.transpose(contour_pred.detach().cpu().numpy()[0], (1, 2, 0)), -1)
 
-    os.makedirs('result', exist_ok=True)
+    os.makedirs('Sample', exist_ok=True)
     # plt.subplot(3, 2, 1)
     # plt.imshow(image)
     # plt.subplot(3, 2, 3)
@@ -62,9 +62,9 @@ def visualize(img, gt, contour, pred, contour_pred, epoch, iter):
     # plt.subplot(3, 2, 6)
     # plt.imshow(contour_output, cmap='gray')
     # plt.show()
-    plt.imsave("result/img_{}_{}.jpg".format(epoch, iter), image)
-    plt.imsave("result/gt_{}_{}.jpg".format(epoch, iter), ground_truth, cmap='gray')
-    plt.imsave("result/output_{}_{}.jpg".format(epoch, iter), output, cmap='gray')
-    plt.imsave("result/contour_gt_{}_{}.jpg".format(epoch, iter), contour_gt, cmap='gray')
-    plt.imsave("result/contour_output_{}_{}.jpg".format(epoch, iter), contour_output, cmap='gray')
+    plt.imsave("Sample/img_{}_{}.jpg".format(epoch, iter), image)
+    plt.imsave("Sample/gt_{}_{}.jpg".format(epoch, iter), ground_truth, cmap='gray')
+    plt.imsave("Sample/output_{}_{}.jpg".format(epoch, iter), output, cmap='gray')
+    plt.imsave("Sample/contour_gt_{}_{}.jpg".format(epoch, iter), contour_gt, cmap='gray')
+    plt.imsave("Sample/contour_output_{}_{}.jpg".format(epoch, iter), contour_output, cmap='gray')
 
