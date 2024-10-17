@@ -1,7 +1,7 @@
 from Models.Progressive_Unet import Progressive_Unet
 from Data import dataloader
 from Models.funcs import visualize
-
+import os
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -14,6 +14,7 @@ def inter_train(args, epochs, scale_ratio, lr=0.001, prev_model=None):
     print("train {} * {}".format(scale_ratio*2*7, scale_ratio*2*7))
 
     model = nn.DataParallel(Progressive_Unet(scale=args.down_scale - scale_ratio).cuda())
+    model.module.load_state_dict(torch.load(os.path.join('Weights', 'param_%s.pth' % str(epochs[0] - 1))))
     if args.reload:
         print("Reload {}".format(args.weight))
         model.module.load_state_dict(torch.load(args.weight))
@@ -52,7 +53,7 @@ def inter_train(args, epochs, scale_ratio, lr=0.001, prev_model=None):
             if i == len(data_loader) - 1:
                 writer.add_scalar("training loss", criterion.mean().item(), epoch)
 
-        if scale_ratio == 5 and epoch % 10 == 0:
-            torch.save(model.module.state_dict(), "Weights/Prog_multi_0309_{}.pth".format(epoch))
+        if epoch % (epochs[1] - 1) == 0:
+            torch.save(model.module.state_dict(), "./Weights/param_{}.pth".format(epoch))
 
     return model

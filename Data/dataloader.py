@@ -167,7 +167,7 @@ class custom_dataloader(Dataset):
 
         w, h = img.size
 
-        name = self.img_list[item].split("\\")[-1]
+        name = self.img_list[item].split("/")[-1]
 
         if self.train:
             img = img.convert('RGB')

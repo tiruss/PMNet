@@ -22,7 +22,7 @@ if __name__ == '__main__':
     parser.add_argument('--gpus', default=2, type=int)
     parser.add_argument('--log_path', default='logs')
     parser.add_argument('--reload', default=False)
-    parser.add_argument('--weight', default='Weights/Prog_multi_0309_220.pth')
+    parser.add_argument('--weight', default='Weights/param_200.pth')
 
     args = parser.parse_args()
 
@@ -40,6 +40,8 @@ if __name__ == '__main__':
     writer = SummaryWriter(os.path.join('path', args.log_path))
 
     optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+
+    os.makedirs('Weights', exist_ok=True)
 
     if args.reload == False:
         mae = 0
@@ -64,21 +66,23 @@ if __name__ == '__main__':
 
                 mae = (torch.abs(pred - gt).sum() / dataset.__len__()) / 255.
 
-                print('Epoch: {} Batch: {} / {} Mask Loss: {:.5f} / Contour Loss: {:.5f} /  MAE {:.5f}'.format(epoch,len(data_loader),
+                print('Epoch: {} Batch: {} / {} Mask Loss: {:.5f} / Contour Loss: {:.5f} /  MAE {:.5f}'.format(epoch + 1,len(data_loader),
                                                                                                                i, mask_bce.mean().item(),
                                                                                                                contour_bce.mean().item(), mae))
 
                 if i != 0 and i % 100 == 0:
-                    visualize(img, gt, contour, pred, contour_pred, epoch, i)
+                    visualize(img, gt, contour, pred, contour_pred, epoch + 1, i)
 
                 if i == len(data_loader)-1:
                     writer.add_scalar("training loss", criterion.mean().item(), epoch)
 
-        inter_net1 = inter_train(args, epochs=(5, 15), scale_ratio=1)
-        inter_net2 = inter_train(args, epochs=(15, 30), scale_ratio=2)
-        inter_net3 = inter_train(args, epochs=(30, 70), scale_ratio=3)
-        inter_net4 = inter_train(args, epochs=(70, 120), scale_ratio=4)
-        inter_net5 = inter_train(args, epochs=(120, 200), scale_ratio=5)
-    else:
+            if (epoch + 1) % 5 == 0:
+                torch.save(model.module.state_dict(), "./Weights/param_{}.pth".format(epoch + 1))
 
-        net = inter_train(args, epochs=(221, 251), scale_ratio=5)
+        inter_net1 = inter_train(args, epochs=(6, 16), scale_ratio=1)
+        inter_net2 = inter_train(args, epochs=(16, 31), scale_ratio=2)
+        inter_net3 = inter_train(args, epochs=(31, 71), scale_ratio=3)
+        inter_net4 = inter_train(args, epochs=(71, 121), scale_ratio=4)
+        inter_net5 = inter_train(args, epochs=(121, 201), scale_ratio=5)
+    else:
+        net = inter_train(args, epochs=(201, 251), scale_ratio=5)

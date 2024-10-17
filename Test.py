@@ -22,9 +22,9 @@ import matplotlib.pyplot as plt
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--weight", default="Weights/Prog_multi_0309_250.pth", type=str)
+    parser.add_argument("--weight", default="Weights/param_200.pth", type=str)
     parser.add_argument("--input_dir", default="DUTS-TE", type=str)
-    parser.add_argument("--save_dir", default="results")
+    parser.add_argument("--save_dir", default="Test_results")
     parser.add_argument('--batch_size', default=64)
     parser.add_argument('--result_save', default=True)
     parser.add_argument('--measure_test', default=True)
@@ -40,8 +40,8 @@ if __name__ == '__main__':
     model = Progressive_Unet(scale=0).to(device)
     model.load_state_dict(state_dict)
 
-    dataset = custom_dataloader(img_dir=os.path.join("Datasets", args.input_dir, "imgs/"),
-                                mask_dir=os.path.join("Datasets", args.input_dir, "gt/"), train=False)
+    dataset = custom_dataloader(img_dir=os.path.join(args.input_dir, "test_original/"),
+                                mask_dir=os.path.join(args.input_dir, "test_label/"), train=False)
 
     dataloader = DataLoader(dataset, batch_size=args.batch_size)
 
@@ -89,8 +89,8 @@ if __name__ == '__main__':
     mae = mae / dataloader.__len__()
 
     if args.measure_test:
-        maxfm, meanfm, m_mean, pres, recs, fms = fm_and_mae(pred_dir=os.path.join(args.save_dir, args.input_dir, "output"),
-                                                 gt_dir=os.path.join("Datasets/" + args.input_dir, "gt"))
+        maxfm, meanfm, m_mean, pres, recs, fms = fm_and_mae(pred_dir=os.path.join(args.save_dir, args.input_dir, "mask_output"),
+                                                 gt_dir=os.path.join("Datasets/"  + args.input_dir, "gt"))
 
         print("Max F-measure: {:.4f}".format(maxfm))
         print("Mean F-measure: {:.4f}".format(meanfm))
